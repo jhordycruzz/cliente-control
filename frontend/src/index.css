@@ -1,0 +1,19 @@
+/* frontend/src/index.css */
+
+@import "tailwindcss";
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Scrollbar futurista (solo CSS normal, sin @apply) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #22d3ee;
+  border-radius: 9999px;
+}
