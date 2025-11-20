@@ -237,6 +237,10 @@ app.post('/api/users', authMiddleware, adminOnly, (req, res) => {
   });
 });
 
+app.get('/healthz', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 app.listen(PORT, () => {
   console.log(`API escuchando en http://localhost:${PORT}`);
 });
