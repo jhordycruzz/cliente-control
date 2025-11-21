@@ -1,5 +1,7 @@
 // frontend/src/api/pagosApi.js
-const API_URL = "http://localhost:3000/api/pagos";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/pagos`;
+
 
 export async function getPagos() {
   const res = await fetch(API_URL);

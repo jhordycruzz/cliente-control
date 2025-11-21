@@ -1,5 +1,6 @@
 // frontend/src/api/comprobantesApi.js
-const API_URL = "http://localhost:3000/api/comprobantes";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/comprobantes`;
 
 export async function uploadComprobante(file, tipo) {
   const formData = new FormData();

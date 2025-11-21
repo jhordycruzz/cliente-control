@@ -1,5 +1,6 @@
 // frontend/src/api/contratosApi.js
-const API_URL = "http://localhost:3000/api/contratos";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/contratos`;
 
 export async function getContratos() {
   const res = await fetch(API_URL);

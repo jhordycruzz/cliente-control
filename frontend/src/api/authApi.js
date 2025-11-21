@@ -1,5 +1,6 @@
 // frontend/src/api/authApi.js
-const API_URL = "http://localhost:3000/api/auth";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/auth`;
 
 export async function login(username, password) {
   const res = await fetch(`${API_URL}/login`, {
@@ -13,6 +14,6 @@ export async function login(username, password) {
     throw new Error(error.error || "Error al iniciar sesión");
   }
 
-  // Esperamos: { token, user }
-  return res.json();
+  return res.json(); // { token, user }
 }
+

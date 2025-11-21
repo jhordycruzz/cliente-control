@@ -1,5 +1,6 @@
 // frontend/src/api/clientesApi.js
-const API_URL = "http://localhost:3000/api/clientes";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/clientes`;
 
 export async function getClientes() {
   const res = await fetch(API_URL);

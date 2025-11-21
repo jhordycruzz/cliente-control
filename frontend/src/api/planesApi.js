@@ -1,5 +1,6 @@
 // frontend/src/api/planesApi.js
-const API_URL = "http://localhost:3000/api/planes";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/planes`;
 
 export async function getPlanes() {
   const res = await fetch(API_URL);

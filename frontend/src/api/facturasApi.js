@@ -1,5 +1,7 @@
 // frontend/src/api/facturasApi.js
-const API_URL = "http://localhost:3000/api/facturas";
+import { API_BASE_URL } from "./config";
+const API_URL = `${API_BASE_URL}/facturas`;
+
 
 export async function getFacturas() {
   const res = await fetch(API_URL);
