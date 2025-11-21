@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
       f.cliente_id,
       cli.dni AS cliente_dni,
       cli.nombres || ' ' || cli.apellidos AS cliente_nombre,
+      cli.telefono AS cliente_telefono,          -- 👈 TELÉFONO
       f.periodo_desde,
       f.periodo_hasta,
       f.fecha_emision,
@@ -48,6 +49,7 @@ router.get('/cliente/:clienteId', (req, res) => {
       f.cliente_id,
       cli.dni AS cliente_dni,
       cli.nombres || ' ' || cli.apellidos AS cliente_nombre,
+      cli.telefono AS cliente_telefono,          -- 👈 TELÉFONO
       f.periodo_desde,
       f.periodo_hasta,
       f.fecha_emision,
@@ -79,6 +81,7 @@ router.get('/contrato/:contratoId', (req, res) => {
       f.cliente_id,
       cli.dni AS cliente_dni,
       cli.nombres || ' ' || cli.apellidos AS cliente_nombre,
+      cli.telefono AS cliente_telefono,          -- 👈 TELÉFONO
       f.periodo_desde,
       f.periodo_hasta,
       f.fecha_emision,
@@ -110,6 +113,7 @@ router.get('/:id', (req, res) => {
       f.cliente_id,
       cli.dni AS cliente_dni,
       cli.nombres || ' ' || cli.apellidos AS cliente_nombre,
+      cli.telefono AS cliente_telefono,          -- 👈 TELÉFONO
       f.periodo_desde,
       f.periodo_hasta,
       f.fecha_emision,
@@ -256,7 +260,7 @@ router.put('/:id', (req, res) => {
   });
 });
 
-// PATCH /api/facturas/:id/estado  -> cambiar solo el estado (PENDIENTE/PAGADA/VENCIDA)
+// PATCH /api/facturas/:id/estado  -> cambiar solo el estado
 router.patch('/:id/estado', (req, res) => {
   const { id } = req.params;
   const { estado } = req.body;

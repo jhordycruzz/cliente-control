@@ -9,7 +9,7 @@ import {
 import { uploadComprobante } from "../../api/comprobantesApi";
 import { getClientes } from "../../api/clientesApi";
 import { getFacturas } from "../../api/facturasApi";
-//import PagoForm from "./PagoForm";
+import PagoForm from "./PagoForm";
 import PagosTable from "./PagosTable";
 
 export default function PagosPage() {

@@ -15,19 +15,21 @@ const initialForm = {
 };
 
 export default function FacturaForm({
-  clientes,
-  contratos,
+  clientes = [],   // 👈 valor por defecto: array vacío
+  contratos = [],  // 👈 valor por defecto: array vacío
   onSubmit,
   initialData,
   onCancel,
 }) {
   const [form, setForm] = useState(initialForm);
 
-  // para buscar contrato seleccionado
+  // mapa contrato_id -> contrato
   const contratosPorId = useMemo(() => {
     const map = {};
-    contratos.forEach((c) => {
-      map[c.id] = c;
+    (contratos || []).forEach((c) => {
+      if (c && typeof c.id !== "undefined") {
+        map[c.id] = c;
+      }
     });
     return map;
   }, [contratos]);
@@ -105,6 +107,15 @@ export default function FacturaForm({
 
   const isEditing = Boolean(initialData);
 
+  // texto del cliente seleccionado (solo lectura)
+  const textoCliente = (() => {
+    if (!form.cliente_id) return "";
+    const cli = (clientes || []).find(
+      (cl) => cl.id === Number(form.cliente_id),
+    );
+    return cli ? `${cli.dni} - ${cli.nombres} ${cli.apellidos}` : "";
+  })();
+
   return (
     <div className="bg-white shadow rounded-lg p-4">
       <h3 className="text-lg font-semibold text-gray-800 mb-3">
@@ -123,7 +134,7 @@ export default function FacturaForm({
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm focus:border-blue-500 focus:ring-blue-500"
           >
             <option value="">Seleccionar contrato</option>
-            {contratos.map((c) => (
+            {(contratos || []).map((c) => (
               <option key={c.id} value={c.id}>
                 #{c.id} — {c.cliente_nombre} — {c.plan_nombre} ({c.velocidad})
               </option>
@@ -139,18 +150,7 @@ export default function FacturaForm({
           <input
             type="text"
             readOnly
-            value={
-              form.cliente_id
-                ? (() => {
-                    const cli = clientes.find(
-                      (cl) => cl.id === Number(form.cliente_id),
-                    );
-                    return cli
-                      ? `${cli.dni} - ${cli.nombres} ${cli.apellidos}`
-                      : "";
-                  })()
-                : ""
-            }
+            value={textoCliente}
             className="mt-1 block w-full rounded-md border-gray-200 bg-gray-50 text-sm text-gray-700"
           />
         </div>

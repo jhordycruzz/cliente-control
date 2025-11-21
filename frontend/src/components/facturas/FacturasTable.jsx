@@ -16,6 +16,7 @@ export default function FacturasTable({
   onEdit,
   onDelete,
   onCambiarEstado,
+  onEnviarWhatsApp, // 👈 importante
 }) {
   if (!facturas.length) {
     return (
@@ -68,13 +69,23 @@ export default function FacturasTable({
               <td className="px-3 py-2">
                 <span
                   className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${badgeClase(
-                    f.estado,
+                    f.estado
                   )}`}
                 >
                   {f.estado}
                 </span>
               </td>
               <td className="px-3 py-2 text-right space-x-2">
+                {/* ✅ Botón WhatsApp */}
+                {onEnviarWhatsApp && (
+                  <button
+                    onClick={() => onEnviarWhatsApp(f)}
+                    className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100"
+                  >
+                    WhatsApp
+                  </button>
+                )}
+
                 {f.estado !== "PAGADA" && (
                   <button
                     onClick={() => onCambiarEstado(f.id, "PAGADA")}
@@ -83,6 +94,7 @@ export default function FacturasTable({
                     Marcar pagada
                   </button>
                 )}
+
                 <button
                   onClick={() => onEdit(f)}
                   className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md text-blue-700 bg-blue-50 hover:bg-blue-100"

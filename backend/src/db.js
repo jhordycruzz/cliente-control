@@ -1,20 +1,20 @@
 // backend/src/db.js
-const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
+const path = require("path");
+const sqlite3 = require("sqlite3").verbose();
 
-const dbPath = path.join(__dirname, '../data', 'database.sqlite');
+const dbPath = path.join(__dirname, "../data", "database.sqlite");
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error('Error al conectar con SQLite:', err.message);
+    console.error("Error al conectar con SQLite:", err.message);
   } else {
-    console.log('Conectado a SQLite en', dbPath);
+    console.log("Conectado a SQLite en", dbPath);
   }
 });
 
 // Crear tablas necesarias
 db.serialize(() => {
-  // 1) CLIENTES (1.2 usamos todo)
+  // 1) CLIENTES
   db.run(`
     CREATE TABLE IF NOT EXISTS clientes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,7 +29,7 @@ db.serialize(() => {
     )
   `);
 
-  // 2) PLANES (1.3: velocidad, precio mensual, tipo)
+  // 2) PLANES
   db.run(`
     CREATE TABLE IF NOT EXISTS planes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,7 +41,7 @@ db.serialize(() => {
     )
   `);
 
-  // 3) CONTRATOS (1.4 usamos todo)
+  // 3) CONTRATOS
   db.run(`
     CREATE TABLE IF NOT EXISTS contratos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +58,7 @@ db.serialize(() => {
     )
   `);
 
-  // 4) FACTURAS (1.6 usamos todo)
+  // 4) FACTURAS
   db.run(`
     CREATE TABLE IF NOT EXISTS facturas (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,7 +76,7 @@ db.serialize(() => {
     )
   `);
 
-  // 5) COMPROBANTES DE PAGO (para la captura Yape, depósito, etc.)
+  // 5) COMPROBANTES DE PAGO
   db.run(`
     CREATE TABLE IF NOT EXISTS comprobantes_pago (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -86,9 +86,8 @@ db.serialize(() => {
       creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
-  
 
-  // 6) PAGOS (1.7 usamos todo + enlace a comprobante)
+  // 6) PAGOS
   db.run(`
     CREATE TABLE IF NOT EXISTS pagos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -106,8 +105,17 @@ db.serialize(() => {
     )
   `);
 
+  // 7) USUARIOS (para login)
+  db.run(`
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      rol TEXT NOT NULL DEFAULT 'ADMIN'
+    )
+  `);
 
-  console.log('Tablas creadas/verificadas correctamente');
+  console.log("Tablas creadas/verificadas correctamente");
 });
 
 module.exports = db;
